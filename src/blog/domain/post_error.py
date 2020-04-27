@@ -1,0 +1,2 @@
+class PostError(Exception):
+    pass
