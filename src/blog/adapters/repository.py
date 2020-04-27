@@ -1,13 +1,12 @@
 import abc
-from blog.domain.post import Post
-
+from blog.domain import Post
 
 class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
-    def add(self, batch: Post):
+    def add(self, batch: model.Post):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, reference) -> Post:
+    def get(self, reference) -> model.Post:
         raise NotImplementedError
