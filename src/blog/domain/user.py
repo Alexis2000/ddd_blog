@@ -8,3 +8,14 @@ class User:
         self.last_name = last_name
         self.role = role
         self.created_at = created_at
+
+    def __repr__(self):
+        return f'<User {self.id}>'
+
+    def __eq__(self, other):
+        if not isinstance(other, User):
+            return False
+        return other.id == self.id
+
+    def __hash__(self):
+        return hash(self.id)
