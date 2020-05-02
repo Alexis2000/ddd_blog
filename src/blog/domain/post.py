@@ -27,7 +27,7 @@ class Post:
         self.id = post_id
         self.title = title
         self.body = body
-        self.author = user
+        self._author = user
         self.created_at = created_at
 
     def __repr__(self):

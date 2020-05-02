@@ -21,9 +21,24 @@ def in_memory_db():
 
 
 @pytest.fixture
-def session(in_memory_db):
+def sqlite_db():
+    engine = create_engine("sqlite:///some.db")
+    metadata.create_all(engine)
+    return engine
+
+
+@pytest.fixture(scope='session')
+def postgres_db():
+    engine = create_engine(config.get_postgres_uri())
+    wait_for_postgres_to_come_up(engine)
+    metadata.create_all(engine)
+    return engine
+
+
+@pytest.fixture
+def session(postgres_db):
     start_mappers()
-    yield sessionmaker(bind=in_memory_db)()
+    yield sessionmaker(bind=postgres_db)()
     clear_mappers()
 
 
@@ -35,14 +50,6 @@ def wait_for_postgres_to_come_up(engine):
         except OperationalError:
             time.sleep(0.5)
     pytest.fail('Postgres never came up')
-
-
-@pytest.fixture(scope='session')
-def postgres_db():
-    engine = create_engine(config.get_postgres_uri())
-    wait_for_postgres_to_come_up(engine)
-    metadata.create_all(engine)
-    return engine
 
 
 @pytest.fixture

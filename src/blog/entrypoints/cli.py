@@ -5,6 +5,8 @@ from sqlalchemy import (
     ForeignKey, create_engine
 )
 
+# Experimental script
+
 class User:
     def __init__(self, user_id: str, first_name: str, last_name: str, role: str, created_at: date):
         self.id = user_id
