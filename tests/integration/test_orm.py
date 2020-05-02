@@ -1,7 +1,5 @@
 from blog.domain.post import Post
 from blog.domain.post import User
-from sqlalchemy.orm import joinedload
-from datetime import date
 
 
 def test_post_mapper_can_load_posts(session):

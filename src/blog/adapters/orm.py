@@ -36,4 +36,4 @@ def start_mappers():
     mapper(User, users, properties={
         'user': relationship(Post, back_populates="_author")
     })
-
+    pass

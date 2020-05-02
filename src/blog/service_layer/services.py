@@ -2,13 +2,14 @@ from blog.domain.post import Post
 from blog.adapters.repository import AbstractRepository
 from blog.domain.user import User
 from datetime import date
+import uuid
 
 
 def add_post(
-        post_id: str, title: str, body: str, author: User, created_at: date,
-        repo: AbstractRepository, session,
+    title: str, body: str, author: User, repo: AbstractRepository, session,
 ):
-    repo.add(Post(post_id, title, body, author, created_at))
+    post_id = str(uuid.uuid4())
+    repo.add(Post(post_id, title, body, author, date.today()))
     session.commit()
 
     return post_id

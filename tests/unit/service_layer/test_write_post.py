@@ -1,4 +1,3 @@
-import pytest
 from datetime import date
 from blog.adapters import repository
 from blog.domain.user import User
@@ -30,14 +29,13 @@ class FakeSession:
 def test_add_post():
     repo, session = FakeRepository([]), FakeSession()
     admin = User('some-user-id', 'some-first-name', 'some-last-name', 'admin', date.today())
-    post_id = services.add_post("some_id", "Catchy Title", "some-text-body", admin, date.today(), repo, session)
-    assert repo.get("some_id").id == "some_id"
-    assert post_id == repo.get("some_id").id
+    post_id = services.add_post("Catchy Title", "some-text-body", admin, repo, session)
+    assert post_id == repo.get(post_id).id
 
 
 def test_commits():
     repo, session = FakeRepository([]), FakeSession()
     session = FakeSession()
     admin = User('some-user-id', 'some-first-name', 'some-last-name', 'admin', date.today())
-    services.add_post("some_id", "Catchy Title", "some-text-body", admin, date.today(), repo, session)
+    services.add_post("Catchy Title", "some-text-body", admin, repo, session)
     assert session.committed is True

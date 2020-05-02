@@ -1,6 +1,17 @@
 from datetime import datetime
 from flask import Flask, jsonify, request
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
+from blog import config
+from blog.domain.post import Post
+from blog.adapters import orm
+from blog.service_layer import services
+
+from blog.adapters.post_sqlalchemy_repository import PostSqlAlchemyRepository
+
+orm.start_mappers()
+get_session = sessionmaker(bind=create_engine(config.get_postgres_uri()))
 app = Flask(__name__)
 
 
@@ -11,5 +22,18 @@ def healthcheck():
 
 @app.route("/add_post", methods=['POST'])
 def add_batch():
+    session = get_session()
+    repo = PostSqlAlchemyRepository(session)
+
+    request_data = request.get_json()
+
+    title = request_data['title']
+    body = request_data['body']
+
+    services.add_post(
+        title, body, '123', repo, session
+    )
+
     return 'OK', 201
+
 
