@@ -1,10 +1,8 @@
-from datetime import datetime
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from blog import config
-from blog.domain.post import Post
 from blog.adapters import orm
 from blog.service_layer import services
 
