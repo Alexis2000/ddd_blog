@@ -3,18 +3,13 @@ from blog.domain.user import User
 from blog.service_layer import services
 from tests.unit.service_layer.fake_session import FakeSession
 from tests.unit.service_layer.fake_post_repository import FakePostRepository
+from tests.unit.service_layer.fake_user_repository import FakeUserRepository
 
 
 def test_add_post():
-    repo, session = FakePostRepository([]), FakeSession()
-    admin = User('some-user-id', 'some-first-name', 'some-last-name', 'admin', date.today())
-    post_id = services.add_post("Catchy Title", "some-text-body", admin, repo, session)
-    assert post_id == repo.get(post_id).id
-
-
-def test_commits():
-    repo, session = FakePostRepository([]), FakeSession()
-    session = FakeSession()
-    admin = User('some-user-id', 'some-first-name', 'some-last-name', 'admin', date.today())
-    services.add_post("Catchy Title", "some-text-body", admin, repo, session)
+    posts_repo, users_repo, session = FakePostRepository([]), FakeUserRepository([]), FakeSession()
+    users_repo.add(User('some-user-id', 'some-first-name', 'some-last-name', 'admin', date.today()))
+    post_id = services.add_post("Catchy Title", "some-text-body", 'some-user-id', posts_repo, users_repo, session)
     assert session.committed is True
+    assert post_id == posts_repo.get(post_id).id
+
