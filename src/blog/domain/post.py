@@ -1,4 +1,5 @@
 from datetime import date
+from blog.domain.user import User
 from blog.domain.post_error import PostError
 
 class Post:
