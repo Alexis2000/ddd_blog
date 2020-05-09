@@ -5,7 +5,7 @@ from blog.domain.post_error import PostError
 
 class Post:
 
-    def __init__(self, post_id: str, title: str, body: str, user: str, created_at: date):
+    def __init__(self, post_id: str, title: str, body: str, user: User, created_at: date):
         if user.role != 'admin':
             raise PostError('The author must have the role admin')
         self.id = post_id
