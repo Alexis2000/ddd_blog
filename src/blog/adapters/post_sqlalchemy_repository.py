@@ -1,8 +1,8 @@
-from blog.adapters.repository import AbstractRepository
+from blog.adapters.post_abstract_repository import PostAbstractRepository
 from blog.domain.post import Post
 
 
-class PostSqlAlchemyRepository(AbstractRepository):
+class PostSqlAlchemyRepository(PostAbstractRepository):
 
     def __init__(self, session):
         self.session = session

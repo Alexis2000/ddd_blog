@@ -2,7 +2,7 @@ import abc
 from blog.domain.post import Post
 
 
-class AbstractRepository(abc.ABC):
+class PostAbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def add(self, batch: Post):

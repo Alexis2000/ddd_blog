@@ -1,10 +1,10 @@
 from datetime import date
-from blog.adapters import repository
+from blog.adapters.post_abstract_repository import PostAbstractRepository
 from blog.domain.user import User
 from blog.service_layer import services
 
 
-class FakeRepository(repository.AbstractRepository):
+class FakeRepository(PostAbstractRepository):
 
     def __init__(self, posts):
         self._posts = set(posts)
