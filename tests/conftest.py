@@ -15,7 +15,7 @@ from blog import config
 
 @pytest.fixture
 def in_memory_db():
-    engine = create_engine('sqlite:///:memory:')
+    engine = create_engine("sqlite:///:memory:")
     metadata.create_all(engine)
     return engine
 
@@ -27,7 +27,7 @@ def sqlite_db():
     return engine
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def postgres_db():
     engine = create_engine(config.get_postgres_uri())
     wait_for_postgres_to_come_up(engine)
@@ -49,12 +49,12 @@ def wait_for_postgres_to_come_up(engine):
             return engine.connect()
         except OperationalError:
             time.sleep(0.5)
-    pytest.fail('Postgres never came up')
+    pytest.fail("Postgres never came up")
 
 
 @pytest.fixture
 def restart_api():
-    (Path(__file__).parent / '../src/blog/entrypoints/flask_app.py').touch()
+    (Path(__file__).parent / "../src/blog/entrypoints/flask_app.py").touch()
     time.sleep(0.5)
     wait_for_webapp_to_come_up()
 
@@ -67,4 +67,4 @@ def wait_for_webapp_to_come_up():
             return requests.get(url)
         except ConnectionError:
             time.sleep(0.5)
-    pytest.fail('API never came up')
+    pytest.fail("API never came up")

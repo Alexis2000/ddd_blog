@@ -3,7 +3,6 @@ from blog.domain.post import Post
 
 
 class PostSqlAlchemyRepository(PostAbstractRepository):
-
     def __init__(self, session):
         self.session = session
 

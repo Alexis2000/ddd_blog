@@ -7,7 +7,12 @@ import uuid
 
 
 def add_post(
-    title: str, body: str, user_id: str, posts_repo: PostAbstractRepository, users_repo: UserAbstractRepository, session
+    title: str,
+    body: str,
+    user_id: str,
+    posts_repo: PostAbstractRepository,
+    users_repo: UserAbstractRepository,
+    session,
 ):
     author = users_repo.get(user_id)
     post_id = str(uuid.uuid4())

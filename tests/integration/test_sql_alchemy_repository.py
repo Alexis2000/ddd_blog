@@ -6,22 +6,10 @@ from blog.adapters.post_sqlalchemy_repository import PostSqlAlchemyRepository
 
 
 def test_repo_can_store_a_post_with_user(session):
-    user = User(
-        str(uuid4()),
-        'Horst',
-        'Seehofer',
-        'admin',
-        datetime.now()
-    )
+    user = User(str(uuid4()), "Horst", "Seehofer", "admin", datetime.now())
     user_id = user.id
 
-    post = Post(
-        str(uuid4()),
-        'A Title',
-        'A Body',
-        user,
-        datetime.now()
-    )
+    post = Post(str(uuid4()), "A Title", "A Body", user, datetime.now())
     post_id = post.id
 
     repo = PostSqlAlchemyRepository(session)

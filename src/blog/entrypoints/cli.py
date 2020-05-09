@@ -1,14 +1,23 @@
 from datetime import date
 from sqlalchemy.orm import mapper, relationship, clear_mappers, sessionmaker, Session
 from sqlalchemy import (
-    Table, MetaData, Column, Integer, String, Date,
-    ForeignKey, create_engine
+    Table,
+    MetaData,
+    Column,
+    Integer,
+    String,
+    Date,
+    ForeignKey,
+    create_engine,
 )
 
 # Experimental script
 
+
 class User:
-    def __init__(self, user_id: str, first_name: str, last_name: str, role: str, created_at: date):
+    def __init__(
+        self, user_id: str, first_name: str, last_name: str, role: str, created_at: date
+    ):
         self.id = user_id
         self.first_name = first_name
         self.last_name = last_name
@@ -16,7 +25,7 @@ class User:
         self.created_at = created_at
 
     def __repr__(self):
-        return f'<User {self.id}>'
+        return f"<User {self.id}>"
 
     def __eq__(self, other):
         if not isinstance(other, User):
@@ -28,8 +37,9 @@ class User:
 
 
 class Post:
-
-    def __init__(self, post_id: str, title: str, body: str, user: User, created_at: date):
+    def __init__(
+        self, post_id: str, title: str, body: str, user: User, created_at: date
+    ):
         self.id = post_id
         self.title = title
         self.body = body
@@ -37,7 +47,7 @@ class Post:
         self.created_at = created_at
 
     def __repr__(self):
-        return f'<Post {self.id}>'
+        return f"<Post {self.id}>"
 
     def __eq__(self, other):
         if not isinstance(other, Post):
@@ -53,45 +63,31 @@ session = Session(bind=engine)
 metadata = MetaData()
 
 users = Table(
-    'users', metadata,
-    Column('id', String(255), primary_key=True, autoincrement=False),
-    Column('first_name', String(255)),
-    Column('last_name', String(255)),
-    Column('role', String(255)),
-    Column('created_at', Date, nullable=False),
+    "users",
+    metadata,
+    Column("id", String(255), primary_key=True, autoincrement=False),
+    Column("first_name", String(255)),
+    Column("last_name", String(255)),
+    Column("role", String(255)),
+    Column("created_at", Date, nullable=False),
 )
 
 posts = Table(
-    'posts', metadata,
-    Column('id', String(255), primary_key=True, autoincrement=False),
-    Column('title', String(255)),
-    Column('body', String(255)),
-    Column('author', ForeignKey('users.id')),
-    Column('created_at', Date, nullable=False),
+    "posts",
+    metadata,
+    Column("id", String(255), primary_key=True, autoincrement=False),
+    Column("title", String(255)),
+    Column("body", String(255)),
+    Column("author", ForeignKey("users.id")),
+    Column("created_at", Date, nullable=False),
 )
 
-mapper(Post, posts, properties={
-    '_author': relationship(User, backref='posts')
-})
-mapper(User, users, properties={
-    'user': relationship(Post, back_populates="_author")
-})
+mapper(Post, posts, properties={"_author": relationship(User, backref="posts")})
+mapper(User, users, properties={"user": relationship(Post, back_populates="_author")})
 
-user = User(
-    '1234600',
-    'Lucas',
-    'Hirsch',
-    'admin',
-    date.today()
-)
+user = User("1234600", "Lucas", "Hirsch", "admin", date.today())
 
-post = Post(
-    '12345700',
-    'some-title',
-    'some-body',
-    user,
-    date.today()
-)
+post = Post("12345700", "some-title", "some-body", user, date.today())
 
 post._author = user
 
@@ -105,6 +101,5 @@ post._author = user
 # session.commit()
 
 # query for the post with the user
-post = session.query(Post).filter_by(id='12345700').one()._author.first_name
+post = session.query(Post).filter_by(id="12345700").one()._author.first_name
 print(post)
-

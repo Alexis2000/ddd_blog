@@ -13,26 +13,22 @@ get_session = sessionmaker(bind=create_engine(config.get_postgres_uri()))
 app = Flask(__name__)
 
 
-@app.route("/healthcheck", methods=['GET'])
+@app.route("/healthcheck", methods=["GET"])
 def healthcheck():
-    return 'healthy', 200
+    return "healthy", 200
 
 
-@app.route("/add_post", methods=['POST'])
+@app.route("/add_post", methods=["POST"])
 def add_batch():
     session = get_session()
     repo = PostSqlAlchemyRepository(session)
 
     request_data = request.get_json()
 
-    title = request_data['title']
-    body = request_data['body']
-    author_id = request_data['author_id']
+    title = request_data["title"]
+    body = request_data["body"]
+    author_id = request_data["author_id"]
 
-    services.add_post(
-        title, body, author_id, repo, session
-    )
+    services.add_post(title, body, author_id, repo, session)
 
-    return 'OK', 201
-
-
+    return "OK", 201

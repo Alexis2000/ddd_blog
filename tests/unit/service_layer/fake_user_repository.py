@@ -2,7 +2,6 @@ from blog.adapters.user_abstract_repository import UserAbstractRepository
 
 
 class FakeUserRepository(UserAbstractRepository):
-
     def __init__(self, users):
         self._users = set(users)
 

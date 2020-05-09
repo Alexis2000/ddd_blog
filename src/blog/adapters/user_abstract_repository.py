@@ -3,7 +3,6 @@ from blog.domain.user import User
 
 
 class UserAbstractRepository(abc.ABC):
-
     @abc.abstractmethod
     def add(self, user: User):
         raise NotImplementedError
