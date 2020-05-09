@@ -32,5 +32,5 @@ def can_post_a_new_log_post():
     post_to_add_post(
         'Some Title',
         'Some Body',
-        'admin-id'
+        user.id
     )

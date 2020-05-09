@@ -12,8 +12,9 @@ def test_an_admin_can_create_a_post():
     assert post._author.id == 'some-user-id'
 
 
-# def test_a_none_admin_user_cannot_create_a_post():
-#     with pytest.raises(PostError):
-#         user = User('some-user-id', 'some-first-name', 'some-last-name', 'user', date.today())
-#         post = Post('some-post-id', 'some-title', 'some-body', user, date.today())
+def test_a_none_admin_user_cannot_create_a_post():
+    with pytest.raises(PostError):
+        just_a_user = User('some-user-id', 'some-first-name', 'some-last-name', 'user', date.today())
+        post = Post('some-post-id', 'some-title', 'some-body', just_a_user, date.today())
+
 

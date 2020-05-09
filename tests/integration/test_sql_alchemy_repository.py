@@ -10,7 +10,7 @@ def test_repo_can_store_a_post_with_user(session):
         str(uuid4()),
         'Horst',
         'Seehofer',
-        'user',
+        'admin',
         datetime.now()
     )
     user_id = user.id
