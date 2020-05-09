@@ -7,12 +7,11 @@ from blog import config
 from blog.domain.user import User
 
 
-@pytest.mark.usefixtures("postgres_db")
-@pytest.mark.usefixtures("restart_api")
-def test_healthcheck():
-    url = f"{config.get_api_url()}/healthcheck"
-    r = requests.get(url)
-    assert r.status_code == 200
+def create_user_request(first_name, last_name, role):
+    url = config.get_api_url()
+    return requests.post(
+        f"{url}/user", json={"first_name": first_name, "last_name": last_name, "role": role}
+    )
 
 
 def post_to_add_post(title, body, admin_id):
@@ -21,6 +20,22 @@ def post_to_add_post(title, body, admin_id):
         f"{url}/add_post", json={"title": title, "body": body, "admin_id": admin_id}
     )
     assert r.status_code == 201
+
+
+@pytest.mark.usefixtures("postgres_db")
+@pytest.mark.usefixtures("restart_api")
+def test_can_create_a_new_user():
+    response = create_user_request('first-name', 'last-name', 'role-name')
+    print(response.json())
+    assert response.status_code == 201
+
+
+@pytest.mark.usefixtures("postgres_db")
+@pytest.mark.usefixtures("restart_api")
+def test_healthcheck():
+    url = f"{config.get_api_url()}/healthcheck"
+    r = requests.get(url)
+    assert r.status_code == 200
 
 
 @pytest.mark.usefixtures("postgres_db")

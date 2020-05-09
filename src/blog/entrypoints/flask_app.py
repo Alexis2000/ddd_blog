@@ -4,7 +4,8 @@ from sqlalchemy.orm import sessionmaker
 
 from blog import config
 from blog.adapters import orm
-from blog.service_layer import services
+from blog.service_layer.post_service import add_post
+from blog.service_layer.user_service import add_user
 
 from blog.adapters.post_sqlalchemy_repository import PostSqlAlchemyRepository
 
@@ -18,6 +19,16 @@ def healthcheck():
     return "healthy", 200
 
 
+@app.route("/user", methods=["POST"])
+def create_user():
+    session = get_session()
+    repo = PostSqlAlchemyRepository(session)
+    request_data = request.get_json()
+    add_user(request_data["first_name"], request_data['last_name'], request_data['role'], repo, session)
+
+    return "OK", 201
+
+
 @app.route("/add_post", methods=["POST"])
 def add_batch():
     session = get_session()
@@ -29,6 +40,6 @@ def add_batch():
     body = request_data["body"]
     author_id = request_data["author_id"]
 
-    services.add_post(title, body, author_id, repo, session)
+    add_post(title, body, author_id, repo, session)
 
     return "OK", 201
