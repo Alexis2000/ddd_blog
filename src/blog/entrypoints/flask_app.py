@@ -27,9 +27,10 @@ def add_batch():
 
     title = request_data['title']
     body = request_data['body']
+    author_id = request_data['author_id']
 
     services.add_post(
-        title, body, '123', repo, session
+        title, body, author_id, repo, session
     )
 
     return 'OK', 201

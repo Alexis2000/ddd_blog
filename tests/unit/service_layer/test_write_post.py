@@ -12,4 +12,3 @@ def test_add_post():
     post_id = services.add_post("Catchy Title", "some-text-body", 'some-user-id', posts_repo, users_repo, session)
     assert session.committed is True
     assert post_id == posts_repo.get(post_id).id
-
