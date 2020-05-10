@@ -12,16 +12,10 @@ def add_user(
     last_name: str,
     role: str,
     users_repo: UserAbstractRepository,
-    session
+    session,
 ):
     user_id = str(uuid.uuid4())
-    users_repo.add(User(
-        user_id,
-        first_name,
-        last_name,
-        role,
-        func.now()
-    ))
+    users_repo.add(User(user_id, first_name, last_name, role, func.now()))
 
     session.commit()
 

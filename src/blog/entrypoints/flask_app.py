@@ -8,6 +8,7 @@ from blog.service_layer.post_service import add_post
 from blog.service_layer.user_service import add_user
 
 from blog.adapters.post_sqlalchemy_repository import PostSqlAlchemyRepository
+from blog.adapters.user_sqlalchemy_repository import UserSqlAlchemyRepository
 
 orm.start_mappers()
 get_session = sessionmaker(bind=create_engine(config.get_postgres_uri()))
@@ -24,22 +25,29 @@ def create_user():
     session = get_session()
     repo = PostSqlAlchemyRepository(session)
     request_data = request.get_json()
-    user_id = add_user(request_data["first_name"], request_data['last_name'], request_data['role'], repo, session)
+    user_id = add_user(
+        request_data["first_name"],
+        request_data["last_name"],
+        request_data["role"],
+        repo,
+        session,
+    )
 
-    return jsonify({'user_id': user_id}), 201
+    return jsonify({"user_id": user_id}), 201
 
 
 @app.route("/add_post", methods=["POST"])
-def add_post():
+def create_post():
     session = get_session()
-    repo = PostSqlAlchemyRepository(session)
+    posts_repo = PostSqlAlchemyRepository(session)
+    users_repo = UserSqlAlchemyRepository(session)
 
     request_data = request.get_json()
 
     title = request_data["title"]
     body = request_data["body"]
-    author_id = request_data["author_id"]
+    author_id = request_data["admin_id"]
 
-    add_post(title, body, author_id, repo, session)
+    post_id = add_post(title, body, author_id, posts_repo, users_repo, session)
 
-    return "OK", 201
+    return jsonify({"post_id": post_id}), 201

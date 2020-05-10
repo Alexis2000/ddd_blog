@@ -2,7 +2,7 @@ from blog.adapters.user_abstract_repository import UserAbstractRepository
 from blog.domain.post import User
 
 
-class PostSqlAlchemyRepository(UserAbstractRepository):
+class UserSqlAlchemyRepository(UserAbstractRepository):
     def __init__(self, session):
         self.session = session
 
