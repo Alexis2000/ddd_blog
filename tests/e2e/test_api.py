@@ -26,8 +26,9 @@ def post_to_add_post(title, body, admin_id):
 @pytest.mark.usefixtures("restart_api")
 def test_can_create_a_new_user():
     response = create_user_request('first-name', 'last-name', 'role-name')
-    print(response.json())
     assert response.status_code == 201
+    created_user_id = response.json()['user_id']
+    assert uuid.UUID(created_user_id)
 
 
 @pytest.mark.usefixtures("postgres_db")

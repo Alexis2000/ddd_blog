@@ -24,13 +24,13 @@ def create_user():
     session = get_session()
     repo = PostSqlAlchemyRepository(session)
     request_data = request.get_json()
-    add_user(request_data["first_name"], request_data['last_name'], request_data['role'], repo, session)
+    user_id = add_user(request_data["first_name"], request_data['last_name'], request_data['role'], repo, session)
 
-    return "OK", 201
+    return jsonify({'user_id': user_id}), 201
 
 
 @app.route("/add_post", methods=["POST"])
-def add_batch():
+def add_post():
     session = get_session()
     repo = PostSqlAlchemyRepository(session)
 
