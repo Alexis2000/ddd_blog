@@ -5,8 +5,8 @@ from blog import config
 from blog.adapters import orm
 from blog.service_layer.post_service import add_post
 from blog.service_layer.user_service import add_user
-from blog.adapters.post_sqlalchemy_repository import PostSqlAlchemyRepository
 from blog.adapters.post_sqlalchemy_unit_of_work import PostSqlAlchemyUnitOfWork
+from blog.adapters.user_sqlalchemy_unit_of_work import UserSqlAlchemyUnitOfWork
 
 orm.start_mappers()
 get_session = sessionmaker(bind=create_engine(config.get_postgres_uri()))
@@ -20,15 +20,13 @@ def healthcheck():
 
 @app.route("/user", methods=["POST"])
 def create_user():
-    session = get_session()
-    repo = PostSqlAlchemyRepository(session)
     request_data = request.get_json()
+    uow = UserSqlAlchemyUnitOfWork()
     user_id = add_user(
         request_data["first_name"],
         request_data["last_name"],
         request_data["role"],
-        repo,
-        session,
+        uow
     )
 
     return jsonify({"user_id": user_id}), 201

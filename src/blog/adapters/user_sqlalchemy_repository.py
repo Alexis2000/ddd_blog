@@ -7,7 +7,7 @@ class UserSqlAlchemyRepository(UserAbstractRepository):
         self.session = session
 
     def add(self, user):
-        self.session.add(User)
+        self.session.add(user)
 
     def get(self, user_id):
         return self.session.query(User).filter_by(id=user_id).one()

@@ -1,14 +1,12 @@
 from __future__ import annotations
 import abc
-from blog.adapters.post_abstract_repository import PostAbstractRepository
 from blog.adapters.user_abstract_repository import UserAbstractRepository
 
 
-class PostAbstractUnitOfWork(abc.ABC):
-    posts: PostAbstractRepository
+class UserAbstractUnitOfWork(abc.ABC):
     users: UserAbstractRepository
 
-    def __enter__(self) -> PostAbstractUnitOfWork:
+    def __enter__(self) -> UserAbstractUnitOfWork:
         return self
 
     def __exit__(self, *args):
