@@ -48,10 +48,13 @@ def test_unit_of_work_can_edit_a_post(session_factory):
     with uow:
         post = uow.posts.get(post_id)
         post.title = "changed-title"
+        author = post._author
+        author.first_name = "some-changed-name"
         uow.commit()
 
     post = uow.posts.get(post_id)
     assert post.title == "changed-title"
+    assert post._author.first_name == "some-changed-name"
 
 
 def test_rolls_back_uncommitted_work_by_default(session_factory):

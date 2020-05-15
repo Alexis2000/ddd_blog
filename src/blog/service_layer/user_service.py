@@ -1,9 +1,6 @@
-from blog.domain.post import Post
-from blog.adapters.post_abstract_repository import PostAbstractRepository
 from blog.adapters.user_abstract_repository import UserAbstractRepository
 from blog.domain.user import User
 from sqlalchemy.sql import func
-import datetime
 import uuid
 
 

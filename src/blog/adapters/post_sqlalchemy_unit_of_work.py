@@ -1,13 +1,10 @@
-# pylint: disable=attribute-defined-outside-init
 from __future__ import annotations
-import abc
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.session import Session
 
 from blog import config
-from blog.adapters import post_abstract_repository
 from blog.adapters.post_sqlalchemy_repository import PostSqlAlchemyRepository
+from blog.adapters.user_sqlalchemy_repository import UserSqlAlchemyRepository
 from blog.adapters.post_abstract_unit_of_work import PostAbstractUnitOfWork
 
 
@@ -21,6 +18,7 @@ class PostSqlAlchemyUnitOfWork(PostAbstractUnitOfWork):
     def __enter__(self):
         self.session = self.session_factory()
         self.posts = PostSqlAlchemyRepository(self.session)
+        self.users = UserSqlAlchemyRepository(self.session)
         return super().__enter__()
 
     def __exit__(self, *args):

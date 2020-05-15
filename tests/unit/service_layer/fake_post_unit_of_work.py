@@ -1,6 +1,12 @@
-class FakeUnitOfWork(unit_of_work.AbstractUnitOfWork):
+from blog.adapters.post_abstract_unit_of_work import PostAbstractUnitOfWork
+from fake_post_repository import FakePostRepository
+from fake_user_repository import FakeUserRepository
+
+
+class FakePostUnitOfWork(PostAbstractUnitOfWork):
     def __init__(self):
-        self.batches = FakeRepository([])
+        self.posts = FakePostRepository([])
+        self.users = FakeUserRepository([])
         self.committed = False
 
     def commit(self):
