@@ -14,8 +14,16 @@ class PostAbstractUnitOfWork(abc.ABC):
     def __exit__(self, *args):
         self.rollback()
 
-    @abc.abstractmethod
     def commit(self):
+        self._commit()
+
+    def collect_new_events(self):
+        for post in self.posts.seen:
+            while post.events:
+                yield post.events.pop(0)
+
+    @abc.abstractmethod
+    def _commit(self):
         raise NotImplementedError
 
     @abc.abstractmethod

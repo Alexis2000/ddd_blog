@@ -3,6 +3,7 @@ from blog.adapters.post_abstract_repository import PostAbstractRepository
 
 class FakePostRepository(PostAbstractRepository):
     def __init__(self, posts):
+        super().__init__()
         self._posts = set(posts)
 
     def add(self, post):

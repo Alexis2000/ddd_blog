@@ -3,10 +3,10 @@ some existing features:
 - layered architecture
 - domain model pattern
 - repository pattern
+- unit of work pattern
+- event driven architecture
 
 coming soon:
-- event driven architecture
-- unit of work pattern
 - dependency injection
 
 ## Building the containers

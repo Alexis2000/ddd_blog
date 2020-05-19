@@ -5,10 +5,7 @@ import uuid
 
 
 def add_user(
-    first_name: str,
-    last_name: str,
-    role: str,
-    user_uow: UserAbstractUnitOfWork
+    first_name: str, last_name: str, role: str, user_uow: UserAbstractUnitOfWork
 ):
     with user_uow:
         user_id = str(uuid.uuid4())

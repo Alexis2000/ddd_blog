@@ -10,6 +10,5 @@ def test_add_user_with_unit_of_work():
         User("some-user-id", "some-first-name", "some-last-name", "admin", date.today())
     )
     uow.commit()
-    user = uow.users.get('some-user-id')
+    user = uow.users.get("some-user-id")
     assert user.first_name == "some-first-name"
-

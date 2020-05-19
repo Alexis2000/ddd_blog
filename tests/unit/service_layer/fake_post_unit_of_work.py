@@ -9,7 +9,7 @@ class FakePostUnitOfWork(PostAbstractUnitOfWork):
         self.users = FakeUserRepository([])
         self.committed = False
 
-    def commit(self):
+    def _commit(self):
         self.committed = True
 
     def rollback(self):
