@@ -1,5 +1,5 @@
 from blog.adapters.user_abstract_unit_of_work import UserAbstractUnitOfWork
-from blog.domain.user import User
+from blog.domain.entities.user import User
 from sqlalchemy.sql import func
 import uuid
 

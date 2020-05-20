@@ -1,5 +1,5 @@
 from blog.domain.post import Post
-from blog.domain.user import User
+from blog.domain.entities.user import User
 from blog.domain.post_error import PostError
 from datetime import date
 import pytest

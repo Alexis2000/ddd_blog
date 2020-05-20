@@ -1,5 +1,5 @@
 import abc
-from blog.domain.user import User
+from blog.domain.entities.user import User
 
 
 class UserAbstractRepository(abc.ABC):

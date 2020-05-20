@@ -1,5 +1,5 @@
 from datetime import date
-from blog.domain.user import User
+from blog.domain.entities.user import User
 
 from tests.unit.service_layer.fake_user_unit_of_work import FakeUserUnitOfWork
 

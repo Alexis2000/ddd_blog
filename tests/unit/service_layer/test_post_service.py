@@ -1,5 +1,5 @@
 from datetime import date
-from blog.domain.user import User
+from blog.domain.entities.user import User
 from blog.domain.events.PostCreated import PostCreated
 from blog.service_layer import messagebus
 
