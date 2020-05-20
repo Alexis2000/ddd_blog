@@ -1,27 +1,38 @@
 from datetime import date
 from blog.domain.entities.user import User
 from blog.domain.events.PostCreated import PostCreated
+from blog.domain.events.UserCreated import UserCreated
 from blog.service_layer import messagebus
+from uuid import uuid4
 
 from tests.unit.service_layer.fake_post_unit_of_work import FakePostUnitOfWork
 
 
 def test_add_post_by_putting_event_on_message_bus():
-    uow = FakePostUnitOfWork()
-    uow.users.add(
-        User("some-user-id", "some-first-name", "some-last-name", "admin", date.today())
-    )
-    uow.commit()
 
-    messagebus.handle(
-        event=PostCreated(
-            "post-id123", "some-user-id", "some-title", "some-body", "22-2-1997"
+    uow = FakePostUnitOfWork()
+
+    user_id = messagebus.handle(
+        UserCreated(
+            str(uuid4()),
+            "first_name",
+            "last_name",
+            "admin",
+            date.today(),
         ),
-        uow=uow,
-    )
+        uow,
+    ).pop(0)
+
+    post_id = messagebus.handle(
+        PostCreated(
+            str(uuid4()), user_id, "some-title", "some-body", "22-2-1997"
+        ),
+        uow,
+    ).pop(0)
+
     assert uow.committed
-    post = uow.posts.get("post-id123")
-    assert "post-id123" == post.id
+    post = uow.posts.get(post_id)
+    assert post_id == post.id
     assert post.title == "some-title"
     assert post.body == "some-body"
-    assert post._author.id == "some-user-id"
+    assert post._author.id == user_id
