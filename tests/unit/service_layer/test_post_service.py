@@ -8,7 +8,7 @@ from uuid import uuid4
 from tests.unit.service_layer.fake_post_unit_of_work import FakePostUnitOfWork
 
 
-def test_add_post_by_putting_event_on_message_bus():
+def test_add_post():
 
     uow = FakePostUnitOfWork()
 
