@@ -1,10 +1,6 @@
-# pylint: disable=too-few-public-methods
+from blog.domain.events.Event import Event
 from dataclasses import dataclass
 from datetime import date
-
-
-class Event:
-    pass
 
 
 @dataclass
@@ -14,8 +10,3 @@ class PostCreated(Event):
     title: str
     body: str
     created_at: date
-
-
-@dataclass
-class PostCreatedByNoneAdmin(Event):
-    sku: str

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import List, Dict, Callable, Type, TYPE_CHECKING
-from blog.domain import events
+from blog.domain.events.PostCreated import PostCreated
 from . import post_handler
 
 if TYPE_CHECKING:
@@ -19,5 +19,5 @@ def handle(event: events.Event, uow: unit_of_work.AbstractUnitOfWork):
 
 
 HANDLERS = {
-    events.PostCreated: [post_handler.add_post],
+    PostCreated: [post_handler.add_post],
 }  # type: Dict[Type[events.Event], List[Callable]]

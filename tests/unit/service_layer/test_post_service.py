@@ -1,7 +1,6 @@
 from datetime import date
 from blog.domain.user import User
-from blog.service_layer.post_handler import add_post
-from blog.domain.events import PostCreated
+from blog.domain.events.PostCreated import PostCreated
 from blog.service_layer import messagebus
 
 from tests.unit.service_layer.fake_post_unit_of_work import FakePostUnitOfWork

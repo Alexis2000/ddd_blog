@@ -7,7 +7,7 @@ from blog import config
 from blog.adapters import orm
 from blog.service_layer import messagebus
 from blog.service_layer.user_service import add_user
-from blog.domain.events import PostCreated
+from blog.domain.events.PostCreated import PostCreated
 from blog.adapters.post_sqlalchemy_unit_of_work import PostSqlAlchemyUnitOfWork
 from blog.adapters.user_sqlalchemy_unit_of_work import UserSqlAlchemyUnitOfWork
 
