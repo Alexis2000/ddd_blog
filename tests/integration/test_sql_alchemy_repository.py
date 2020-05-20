@@ -1,5 +1,5 @@
-from blog.domain.post import Post
-from blog.domain.post import User
+from blog.domain.entities.post import Post
+from blog.domain.entities.user import User
 from uuid import uuid4
 from datetime import datetime
 from blog.adapters.post_sqlalchemy_repository import PostSqlAlchemyRepository

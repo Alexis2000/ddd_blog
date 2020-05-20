@@ -1,5 +1,5 @@
 from blog.adapters.post_abstract_repository import PostAbstractRepository
-from blog.domain.post import Post
+from blog.domain.entities.post import Post
 
 
 class PostSqlAlchemyRepository(PostAbstractRepository):

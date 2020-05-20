@@ -1,5 +1,5 @@
 import abc
-from blog.domain.post import Post
+from blog.domain.entities.post import Post
 
 
 class PostAbstractRepository(abc.ABC):

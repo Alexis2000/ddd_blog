@@ -1,6 +1,7 @@
 from sqlalchemy import Table, MetaData, Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import mapper, relationship
-from blog.domain.post import Post, User
+from blog.domain.entities.post import Post
+from blog.domain.entities.user import User
 
 
 metadata = MetaData()

@@ -1,4 +1,4 @@
-from blog.domain.post import Post
+from blog.domain.entities.post import Post
 from blog.adapters.post_abstract_unit_of_work import PostAbstractUnitOfWork
 from blog.domain import events
 

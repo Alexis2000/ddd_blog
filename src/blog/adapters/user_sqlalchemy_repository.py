@@ -1,5 +1,5 @@
 from blog.adapters.user_abstract_repository import UserAbstractRepository
-from blog.domain.post import User
+from blog.domain.entities.user import User
 
 
 class UserSqlAlchemyRepository(UserAbstractRepository):
