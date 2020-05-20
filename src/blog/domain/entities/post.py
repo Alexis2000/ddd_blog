@@ -1,9 +1,10 @@
 from datetime import date
 from blog.domain.entities.user import User
 from blog.domain.post_error import PostError
+from blog.domain.entities.entity import Entity
 
 
-class Post:
+class Post(Entity):
     def __init__(
         self, post_id: str, title: str, body: str, user: User, created_at: date
     ):

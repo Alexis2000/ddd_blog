@@ -1,7 +1,7 @@
-from blog.adapters.user_abstract_repository import UserAbstractRepository
+from blog.adapters.abstract_repository import AbstractRepository
 
 
-class FakeUserRepository(UserAbstractRepository):
+class FakeUserRepository(AbstractRepository):
     def __init__(self, users):
         super().__init__()
         self._users = set(users)

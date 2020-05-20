@@ -1,7 +1,7 @@
-from blog.adapters.post_abstract_repository import PostAbstractRepository
+from blog.adapters.abstract_repository import AbstractRepository
 
 
-class FakePostRepository(PostAbstractRepository):
+class FakePostRepository(AbstractRepository):
     def __init__(self, posts):
         super().__init__()
         self._posts = set(posts)

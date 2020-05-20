@@ -1,15 +1,15 @@
 import abc
-from blog.domain.entities.user import User
+from blog.domain.entities.entity import Entity
 
 
-class UserAbstractRepository(abc.ABC):
+class AbstractRepository(abc.ABC):
     def __init__(self):
         self.seen = set()
 
     @abc.abstractmethod
-    def add(self, user: User):
+    def add(self, entity: Entity):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, id) -> User:
+    def get(self, entity_id) -> Entity:
         raise NotImplementedError

@@ -1,8 +1,8 @@
-from blog.adapters.user_abstract_repository import UserAbstractRepository
+from blog.adapters.abstract_repository import AbstractRepository
 from blog.domain.entities.user import User
 
 
-class UserSqlAlchemyRepository(UserAbstractRepository):
+class UserSqlAlchemyRepository(AbstractRepository):
     def __init__(self, session):
         super().__init__()
         self.session = session
