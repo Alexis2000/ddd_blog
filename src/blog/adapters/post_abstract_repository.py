@@ -7,9 +7,9 @@ class PostAbstractRepository(abc.ABC):
         self.seen = set()
 
     @abc.abstractmethod
-    def add(self, batch: Post):
+    def add(self, post: Post):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, reference) -> Post:
+    def get(self, post_id) -> Post:
         raise NotImplementedError
