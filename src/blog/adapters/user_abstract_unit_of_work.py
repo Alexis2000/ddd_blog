@@ -12,8 +12,16 @@ class UserAbstractUnitOfWork(abc.ABC):
     def __exit__(self, *args):
         self.rollback()
 
-    @abc.abstractmethod
     def commit(self):
+        self._commit()
+
+    def collect_new_events(self):
+        for user in self.users.seen:
+            while user.events:
+                yield user.events.pop(0)
+
+    @abc.abstractmethod
+    def _commit(self):
         raise NotImplementedError
 
     @abc.abstractmethod

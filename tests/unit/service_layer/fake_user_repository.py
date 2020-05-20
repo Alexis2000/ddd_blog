@@ -3,6 +3,7 @@ from blog.adapters.user_abstract_repository import UserAbstractRepository
 
 class FakeUserRepository(UserAbstractRepository):
     def __init__(self, users):
+        super().__init__()
         self._users = set(users)
 
     def add(self, user):

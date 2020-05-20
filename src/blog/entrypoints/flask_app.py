@@ -6,8 +6,8 @@ from datetime import date
 from blog import config
 from blog.adapters import orm
 from blog.service_layer import messagebus
-from blog.service_layer.user_service import add_user
 from blog.domain.events.PostCreated import PostCreated
+from blog.domain.events.UserCreated import UserCreated
 from blog.adapters.post_sqlalchemy_unit_of_work import PostSqlAlchemyUnitOfWork
 from blog.adapters.user_sqlalchemy_unit_of_work import UserSqlAlchemyUnitOfWork
 
@@ -25,9 +25,17 @@ def healthcheck():
 def create_user():
     request_data = request.get_json()
     uow = UserSqlAlchemyUnitOfWork()
-    user_id = add_user(
-        request_data["first_name"], request_data["last_name"], request_data["role"], uow
-    )
+
+    user_id = messagebus.handle(
+        UserCreated(
+            str(uuid4()),
+            request_data["first_name"],
+            request_data["last_name"],
+            "admin",
+            date.today(),
+        ),
+        uow,
+    ).pop(0)
 
     return jsonify({"user_id": user_id}), 201
 

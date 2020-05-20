@@ -3,6 +3,9 @@ from blog.domain.entities.user import User
 
 
 class UserAbstractRepository(abc.ABC):
+    def __init__(self):
+        self.seen = set()
+
     @abc.abstractmethod
     def add(self, user: User):
         raise NotImplementedError
